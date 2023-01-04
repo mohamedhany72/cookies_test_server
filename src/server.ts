@@ -8,20 +8,25 @@ import routes from "./routes";
 
 import dotenv from "dotenv";
 
-dotenv.config()
-const { PORT, SERVER_URL, CLIENT_URL } = process.env;
+dotenv.config();
+const { PORT, SERVER_URL, CLIENT_URL, SECOND_CLIENT_URL, SECOND_SERVER_URL } =
+    process.env;
 
 const corsOptions: cors.CorsOptions = {
-    origin: [SERVER_URL as string, CLIENT_URL as string],
+    origin: [
+        SERVER_URL as string,
+        CLIENT_URL as string,
+        SECOND_CLIENT_URL as string,
+        SECOND_SERVER_URL as string
+    ],
     credentials: true
-}
-
+};
 
 const app = express();
 
-app.use(morgan("common"));
+app.use(morgan("dev"));
 
-app.use(cookieParser())
+app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -43,7 +48,3 @@ app.listen(PORT, (): void => {
 });
 
 export default app;
-
-
-
-

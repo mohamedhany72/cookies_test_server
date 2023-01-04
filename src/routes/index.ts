@@ -1,31 +1,44 @@
 import express from "express";
+import { refreshCookie, browserCookie } from "./cookiesUtil";
 
 const routes = express.Router();
 
-routes.get("/get_cookies", (_req: express.Request, res: express.Response):void => {
-    console.log("get cookies route");
+routes.get(
+    "/get_cookies",
+    (_req: express.Request, res: express.Response): void => {
+        console.log("get cookies route");
 
-     res.status(200).json({
-        refresh: "this-is-refresh-cookie-from-server",
-        browser: "browser-cookie-from-server-is-awosome"
-     })
-})
+        const refresh = "this-is-refresh-cookie-from-server";
+        const browser = "browser-cookie-from-server-is-awosome";
 
-routes.post("/test_cookies", (req:express.Request, res:express.Response):void => {
-    const cookies = req.cookies;
-    const user = req.body.user;
-    const pswd = req.body.password;
+        refreshCookie(res, refresh);
+        browserCookie(res, browser);
 
-    console.log("test cookies route")
-    
+        res.status(200).json({
+            refresh,
+            browser
+        });
+        return;
+    }
+);
 
-    res.status(200).json({
-        cookies,
-        user,
-        pswd,
-        msg: "this is a response from server"
-    })
-})
+routes.post(
+    "/test_cookies",
+    (req: express.Request, res: express.Response): void => {
+        const cookies = req.cookies;
+        const user = req.body.user;
+        const pswd = req.body.password;
 
+        console.log("test cookies route");
+
+        res.status(200).json({
+            cookies,
+            user,
+            pswd,
+            msg: "this is a response from server"
+        });
+        return;
+    }
+);
 
 export default routes;
