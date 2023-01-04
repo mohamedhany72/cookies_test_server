@@ -25,8 +25,14 @@ const browserCookie = (res: express.Response, browser: string): void => {
 };
 
 const clearCookies = (res: express.Response): void => {
-    res.clearCookie("browser");
-    res.clearCookie("refresh");
+    res.clearCookie("browser", {
+        sameSite: "none",
+        secure: true
+    });
+    res.clearCookie("refresh", {
+        sameSite: "none",
+        secure: true
+    });
 };
 
 export { refreshCookie, browserCookie, clearCookies };
