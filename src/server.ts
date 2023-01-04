@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
-// import helmet from "helmet";
+import helmet from "helmet";
 import routes from "./routes";
 
 import dotenv from "dotenv";
@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 
 app.use(cors(corsOptions));
 
-// app.use(helmet());
+app.use(helmet());
 
 app.get("/", (_req: express.Request, res: express.Response): void => {
     res.status(200).send("todos goals api");

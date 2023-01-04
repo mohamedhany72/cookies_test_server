@@ -1,5 +1,5 @@
 import express from "express";
-import { refreshCookie, browserCookie } from "./cookiesUtil";
+import { refreshCookie, browserCookie, clearCookies } from "./cookiesUtil";
 
 const routes = express.Router();
 
@@ -37,6 +37,15 @@ routes.post(
             pswd,
             msg: "this is a response from server"
         });
+        return;
+    }
+);
+
+routes.delete(
+    "/remove_cookies",
+    (_req: express.Request, res: express.Response): void => {
+        clearCookies(res);
+        res.status(200).send("cookies shall be removed!");
         return;
     }
 );
